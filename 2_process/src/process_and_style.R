@@ -1,9 +1,9 @@
 ## Clean up the site data and join it to the site information.  Format it all
 ## for figure 1.
 
-process_data <- function(nwis_data, site_info_csv){
-  
-  site_info <- read_csv(site_info_csv)
+process_data <- function(site_data_csv, site_info){
+  nwis_data <- read_csv(site_data_csv)
+  #site_info <- read_csv(site_info_csv)
   
   nwis_data_clean <- nwis_data %>%
     rename(water_temperature = X_00010_00000) %>% 
