@@ -32,6 +32,7 @@ p1_targets_list <- list(
     download_nwis_data("01466500"),
     format = 'file'
   ),
+
   tar_target(
     site_data,
     c(site_01427207, site_01432160, site_01435000, site_01436690,site_01466500) %>%
