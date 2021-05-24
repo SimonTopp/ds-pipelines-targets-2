@@ -23,9 +23,9 @@ download_nwis_data <- function(filepath, parameterCd = '00010',
 
 
 ## Combine the site csv's
-combine_sites <- function(site_csv, file_out){
-  site_csv %>% map_dfr(read_csv, col_types = 'ccTdcc') %>%
-  write_csv(.,file_out)
+combine_sites <- function(site_files, file_out){
+  site_files %>% map_dfr(read_csv, col_types = 'ccTdcc') %>%
+  write_csv(file_out)
 return(file_out)
 }  
 
