@@ -32,24 +32,23 @@ p1_targets_list <- list(
     download_nwis_data("1_fetch/tmp/01466500.csv"),
     format = 'file'
   ),
-
   tar_target(
-    site_data,
-    c(site_01427207_csv, site_01432160_csv, site_01435000_csv, 
-      site_01436690_csv, site_01466500_csv) %>%
-      map_dfr(read_csv, col_types = 'ccTdcc')
+    site_data_csv,
+    combine_sites(
+    c(site_01427207_csv, site_01432160_csv, site_01435000_csv, site_01436690_csv, site_01466500_csv),
+      file_out = "1_fetch/out/site_data.csv"),
+    format ='file'
   ),
   tar_target(
-    site_info_csv,
-    nwis_site_info(fileout = "1_fetch/out/site_info.csv", site_data),
-    format = "file"
+    site_info,
+    nwis_site_info(site_data_csv),
   )
 )
 
 p2_targets_list <- list(
   tar_target(
     site_data_munged, 
-    process_data(site_data, site_info_csv)
+    process_data(site_data_csv, site_info)
   )
 )
 

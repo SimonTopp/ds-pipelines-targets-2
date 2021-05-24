@@ -21,14 +21,19 @@ download_nwis_data <- function(filepath, parameterCd = '00010',
   return(filepath)
 }
 
+
+## Combine the site csv's
+combine_sites <- function(site_files, file_out){
+  site_files %>% map_dfr(read_csv, col_types = 'ccTdcc') %>%
+  write_csv(file_out)
+return(file_out)
+}  
+
 ### Pull the site information for the full dataset
-nwis_site_info <- function(fileout, site_data){
+nwis_site_info <- function(site_data_csv){
+  site_data <- read_csv(site_data_csv)
   site_no <- unique(site_data$site_no)
-  site_info <- dataRetrieval::readNWISsite(site_no)
-  write_csv(site_info, fileout)
-  return(fileout)
+  dataRetrieval::readNWISsite(site_no)
+  #write_csv(site_info, fileout)
+  #return(fileout)
 }
-
-
-
-
