@@ -1,10 +1,10 @@
 ### Create a function to pull down individual sites because our website
 ### is 'glitchy'.  This avoids repulling everything if an individual site fails
 
-download_nwis_data <- function(site_num, parameterCd = '00010', 
+download_nwis_data <- function(filepath, parameterCd = '00010', 
                                startDate="2014-05-01", endDate="2015-05-01"){
   
-  filepath <- file.path('1_fetch/tmp',paste0(site_num,'.csv'))
+  site_num <- basename(filepath) %>% str_extract(pattern = "(?:[0-9]+)")
   
   # readNWISdata is from the dataRetrieval package
   data_out <- readNWISdata(sites=site_num, service="iv", 

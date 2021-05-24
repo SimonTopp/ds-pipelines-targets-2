@@ -8,34 +8,35 @@ tar_option_set(packages = c("tidyverse", "dataRetrieval")) # Loading tidyverse b
 
 p1_targets_list <- list(
   tar_target(
-    site_01427207,
-    download_nwis_data("01427207"),
+    site_01427207_csv,
+    download_nwis_data("1_fetch/tmp/01427207.csv"),
     format = 'file'
   ),
   tar_target(
-    site_01432160,
-    download_nwis_data("01432160"),
+    site_01432160_csv,
+    download_nwis_data("1_fetch/tmp/01432160.csv"),
     format = 'file'
   ),
   tar_target(
-    site_01435000,
-    download_nwis_data("01435000"),
+    site_01435000_csv,
+    download_nwis_data("1_fetch/tmp/01435000.csv"),
     format = 'file'
   ),
   tar_target(
-    site_01436690,
-    download_nwis_data("01436690"),
+    site_01436690_csv,
+    download_nwis_data("1_fetch/tmp/01436690.csv"),
     format = 'file'
   ),
   tar_target(
-    site_01466500,
-    download_nwis_data("01466500"),
+    site_01466500_csv,
+    download_nwis_data("1_fetch/tmp/01466500.csv"),
     format = 'file'
   ),
 
   tar_target(
     site_data,
-    c(site_01427207, site_01432160, site_01435000, site_01436690,site_01466500) %>%
+    c(site_01427207_csv, site_01432160_csv, site_01435000_csv, 
+      site_01436690_csv, site_01466500_csv) %>%
       map_dfr(read_csv, col_types = 'ccTdcc')
   ),
   tar_target(
@@ -54,7 +55,7 @@ p2_targets_list <- list(
 
 p3_targets_list <- list(
   tar_target(
-    figure_1_png,
+    figure_1_temp_ts_png,
     plot_nwis_timeseries(fileout = "3_visualize/out/figure_1_temp_ts.png", site_data_munged),
     format = "file"
   )
